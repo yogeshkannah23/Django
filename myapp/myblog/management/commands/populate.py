@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from myblog.models import post
+from myblog.models import Post
 from typing import Any
 
 class Command(BaseCommand):
@@ -60,7 +60,7 @@ class Command(BaseCommand):
             url_list.append(f"https://picsum.photos/id/{i}/800/400")
             # print(url_list)
 
-        for title,content,img_url in zip(title,content,url_list):
-            post.objects.create(title=title,content=content,img_url=img_url)
+        for title,content,img_url in zip(titles,descriptions,url_list):
+            Post.objects.create(title=title,content=content,img_url=img_url)
 
         self.stdout.write(self.style.SUCCESS("Data inserted"))
