@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,Http404
 from django.urls import reverse
 from myblog.models import Post
 
@@ -33,7 +33,11 @@ def index(request):
     return render(request,'myblog/index.html',context)
 
 def detail(request,id):
-    return render(request,"myblog/detail.html")
+    try:
+        post = Post.objects.get(pk=id)
+    except Post.DoesNotExist:
+        raise Http404("Post Does not Found in Database")
+    return render(request,"myblog/detail.html" , {'post':post})
 
 
 def blogs(request,id):
